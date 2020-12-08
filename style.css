@@ -1,0 +1,23 @@
+body {
+    text-align: center;
+}
+
+.question {
+    margin-top: 200px;
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.choice1, .choice2, .choice3, .choice4 {
+    margin-bottom: 5px;
+}
+
+.answer {
+    font-size: 18px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.timer {
+    font-size: 16px;
+}
