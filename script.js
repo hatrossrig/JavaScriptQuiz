@@ -4,7 +4,6 @@ var answerTimer;
 var answerSeconds = 1;
 var score;
 var finalScore;
-var name;
 var time = document.querySelector(".timer");
 var start = document.querySelector("#startButton");
 var question = document.querySelector(".question");
@@ -14,8 +13,8 @@ var choice3 = document.querySelector(".choice3");
 var choice4 = document.querySelector(".choice4");
 var answer = document.querySelector(".answer");
 
-var names = [];
-var highScores = [];
+var names = ["Johnny", "Mark", "Bella"];
+var scores = ["25", "50", "70"];
 
 function question1() {
     seconds = 30;
@@ -263,7 +262,7 @@ function endGame() {
 
     }, 1000);
 
-    choice1.innerHTML = "<form><div class=\"form-group\">Name:<input type=\"text\" class=\"form-control mb-3\" id=\"enteredName\" placeholder=\"Your name\"></div><button type=\"button\" class=\"btn btn-dark btn-lg mb-3\" id=\"submitName\">Submit</button></form>";
+    choice1.innerHTML = `<form><div class="form-group">Name:<input type="text" class="form-control mb-3" id="enteredName" placeholder="Your name"></div><button type="button" class="btn btn-dark btn-lg mb-3" id="submitName">Submit</button></form>`;
     choice2.innerHTML = "";
     choice3.innerHTML = "";
     choice4.innerHTML = "";
@@ -290,7 +289,7 @@ function timeOut() {
 
     }, 1000);
 
-    choice1.innerHTML = "<form><div class=\"form-group\">Name:<input type=\"text\" class=\"form-control mb-3\" id=\"enteredName\" placeholder=\"Your name\"></div><button type=\"button\" class=\"btn btn-dark btn-lg mb-3\" id=\"submitName\">Submit</button></form>";
+    choice1.innerHTML = `<form><div class="form-group">Name:<input type="text" class="form-control mb-3" id="enteredName" placeholder="Your name"></div><button type="button" class="btn btn-dark btn-lg mb-3" id="submitName">Submit</button></form>`;
     choice2.innerHTML = "";
     choice3.innerHTML = "";
     choice4.innerHTML = "";
@@ -302,15 +301,64 @@ function timeOut() {
 
 function addName() {
     var nameEl = document.querySelector("#enteredName");
-    nameEl.value = name;
-    question.textContent = "Name: " + name + "     |     Final Score: " + finalScore;
-    choice1.innerHTML = "<button type=\"button\" class=\"btn btn-dark btn-lg mr-1\" id=\"seeScores\">See Scores</button><button type=\"button\" class=\"btn btn-dark btn-lg mr-1\" id=\"clearScores\">Clear Scores</button><button type=\"button\" class=\"btn btn-dark btn-lg\" id=\"startOver\">Try Again</button>";
+    var userName = nameEl.value;
+
+    question.textContent = "Name: " + userName + " | Final Score: " + finalScore;
+    choice1.innerHTML = `<button type="button" class="btn btn-dark btn-lg mr-1" id="seeScores">See Scores</button><button type="button" class="btn btn-dark btn-lg mr-1" id="clearScores">Clear Scores</button><button type="button" class="btn btn-dark btn-lg" id="startOver">Try Again</button>`;
+
+    names.push(userName);
+    scores.push(finalScore);
+    nameEl.value = "";
+
+
+    seeScores.addEventListener("click", function () {
+        highScores();
+    })
+
+    clearScores.addEventListener("click", function () {
+        deleteScores();
+    })
 
     startOver.addEventListener("click", function () {
         question1();
     })
 }
 
+function highScores() {
+    question.textContent = "High Scores";
+    choice1.innerHTML = "";
+
+    for (var i = 0; i < names.length; i++) {
+        var savedName = names[i];
+        var savedScore = scores[i];
+        var li = document.createElement("li");
+        li.textContent = savedName + " - " + savedScore;
+        choice1.appendChild(li);
+    }
+
+    choice2.innerHTML = `<button type="button" class="btn btn-dark btn-lg mt-3 mr-1" id="clearScores">Clear Scores</button><button type="button" class="btn btn-dark btn-lg mt-3" id="startOver">Try Again</button>`;
+
+    clearScores.addEventListener("click", function () {
+        deleteScores();
+    })
+
+    startOver.addEventListener("click", function () {
+        question1();
+    })
+}
+
+function deleteScores() {
+    names.splice(0, names.length);
+    scores.splice(0, scores.length);
+
+    question.textContent = "";
+    choice1.innerHTML = "All scores are now cleared.";
+    choice2.innerHTML = `<button type="button" class="btn btn-dark btn-lg mt-3" id="startOver">Try Again</button>`;
+
+    startOver.addEventListener("click", function () {
+        question1();
+    })
+}
 
 
 function startQuiz() {
