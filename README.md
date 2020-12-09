@@ -11,6 +11,8 @@ When the user finishes normally or runs out of time, the user then must input th
 The name and high score of the user are displayed and saved.
 The user has the option to see the high score list, clear the high score list, or start the quiz over.
 
+![Capture](https://user-images.githubusercontent.com/73320305/101559935-0a33f200-3977-11eb-9e14-87ec4b9ae7dd.PNG)
+
 ## Credits
 
 All web development by Marlon Matthew.
